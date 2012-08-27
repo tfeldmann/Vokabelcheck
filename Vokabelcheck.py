@@ -5,9 +5,9 @@ import string
 
 
 def get_words(text):
+    words = []
     for char in ["\n","\t","\r","!","-",".",",","?","'",'"',";","_","*","/",":"]:
         text = text.replace(char, " ")
-    words = []
     for word in string.split(text, " "):
         stripped = string.strip(word)
         stripped = stripped.lower()
@@ -50,6 +50,7 @@ def show_missing_vocabulary(text, vocabulary):
 
 def selectall(event):
     event.widget.tag_add("sel","1.0","end")
+
 
 def main():
     root = Tk()
