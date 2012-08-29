@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """
-    Vokabelchecker
+    Vokabelcheck
     (c)2012, Thomas Feldmann
 
     Questions, ideas: feldmann.thomas@gmail.com
+    Project page:     http://tfeldmann.github.com/Vokabelcheck
 """
 import string, re
 from Tkinter import *
