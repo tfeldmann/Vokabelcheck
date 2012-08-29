@@ -1,6 +1,9 @@
 # Vokabelcheck
 Dieses Programm ermöglicht die Eingabe eines lateinischen Texts. Ein Klick auf "Analysieren" findet alle Vokabeln im Text, die nicht in der Vokabelliste aufgeführt sind. Zielgruppe sind Lehrer, die Schüler mit den geforderten Vokabeln versorgen müssen.
 
+![Hauptfenster](https://raw.github.com/tfeldmann/Vokabelcheck/master/Screenshots/Vokabelcheck.png)
+![Unbekannte Vokabeln](https://raw.github.com/tfeldmann/Vokabelcheck/master/Screenshots/Unbekannte-Vokabeln.png)
+
 ## Installation
 Windows: Es wird eine Python Umgebung benötigt, die hier installiert werden kann: http://www.python.org/getit/
 Ein Doppelklick auf "Vokabelcheck.py" startet das Programm.
