@@ -1,10 +1,12 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 """
     Vokabelchecker
     (c)2012, Thomas Feldmann
 
     Questions, ideas: feldmann.thomas@gmail.com
 """
-
 import string, re
 from Tkinter import *
 
@@ -51,7 +53,7 @@ def show_missing_vocabulary(text, vocabulary):
     result.configure(yscrollcommand = resultScroll.set)
     resultScroll.configure(command = result.yview)
     resultScroll.pack(side = RIGHT, fill = Y)
-    result.pack(side = LEFT, fill = BOTH)
+    result.pack(side = LEFT, fill = BOTH, expand = 1)
 
     mv = missing_vocabulary(text, vocabulary)
     if (mv):
@@ -78,14 +80,14 @@ def main():
     vocabFrame = Frame(upperFrame)
     vocabs = Text(vocabFrame, text_settings, width = 30)
     vocabsScroll = Scrollbar(vocabFrame)
-    vocabs.pack(side=LEFT, fill=BOTH, expand = 1)
-    vocabsScroll.pack(side=RIGHT, fill=Y)
+    vocabs.pack(side = LEFT, fill = BOTH, expand = 1)
+    vocabsScroll.pack(side = RIGHT, fill = Y)
     vocabs.config(yscrollcommand = vocabsScroll.set)
     vocabsScroll.config(command = vocabs.yview)
 
     textFrame.pack(side = LEFT, expand = 1, fill = BOTH)
     vocabFrame.pack(side = RIGHT, expand = 1, fill = BOTH)
-    upperFrame.pack(side=TOP, expand = 1, fill = BOTH)
+    upperFrame.pack(side = TOP, expand = 1, fill = BOTH)
 
     controlFrame = Frame(root)
     start = Button(controlFrame, text = 'Analyse starten',
