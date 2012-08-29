@@ -14,3 +14,5 @@ Programmierung: @tfeldmann, Idee und Tests: T. Krasenbrink
 
 ## Support und Kontakt
 Probleme oder Anregungen? Eröffne eine Issue für dieses Projekt: https://github.com/tfeldmann/Vokabelcheck/issues
+
+<a href='http://www.pledgie.com/campaigns/18149'><img alt='Click here to lend your support to: Vokabelcheck and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18149.png?skin_name=chrome' border='0' /></a>
