@@ -1,72 +1,91 @@
-# -*- coding: utf-8 -*-
-
-from Tkinter import *
 import string
+from Tkinter import *
+import latin_grammar as grammar
+import test_data
+
+fill_with_test_data = TRUE
 
 
 def get_words(text):
-    words = []
     for char in ["\n","\t","\r","!","-",".",",","?","'",'"',";","_","*","/",":"]:
         text = text.replace(char, " ")
-    for word in string.split(text, " "):
-        stripped = string.strip(word)
-        stripped = stripped.lower()
-        if (stripped != "" and not stripped in words):
-            words.append(stripped)
+    words = set(string.split(string.lower(text), " "))
+    print words
     return words
 
 
 def missing_vocabulary(t, v):
-    words = get_words(t)
-    vocs = get_words(v)
+    t = get_words(t) # words from the text
+    v = get_words(v) # words from vocabs
 
-    missing = []
-    for word in words:
-        if (word in vocs):
-            continue;
-        else:
-            missing.append(word)
+    # create giant set of vocabs
+    missing = t - v
+
+    for vocab in v:
+        c = grammar.conjugate(vocab)
+        d = grammar.declinate(vocab)
+        missing = missing - c
+        missing = missing - d
 
     return missing
+
+    # # step 1: put all words that are not directly in the vocabs into the missing list
+    # print "Step 1:"
+    # for word in t:
+    #     if (word in v):
+    #         print "Found the word "+word+" in vocabulary."
+    #         continue
+    #     else:
+    #         missing_vocabulary.append(word)
+
+    # # step 2: check if the words can be build by conjugating or declirating the vocabs
+    # print "Step 2:"
+    # for missing in missing_vocabulary:
+    #     for vocab in v:
+
+    #         # check if they share a common base
+    #         if (missing.find(vocab, 0, len(vocab)) == 0):
+    #             print "The word "+missing+" could be a form of "+vocab
+
+    #             # check if it is a conjugation
+    #             if ((missing in grammar.conjugate(vocab)) or (missing in grammar.declinate(vocab))):
+    #                 missing_vocabulary.remove(missing)
+    #                 print "Confirmed."
+    #                 continue
+    #             else:
+    #                 print "But it is not."
+
+    # return missing_vocabulary
 
 
 def show_missing_vocabulary(text, vocabulary):
     mv = missing_vocabulary(text, vocabulary)
 
     rw = Tk()
-    rw.bind_class("Text","<Control-a>", selectall)
-    rw.bind_class("Text","<Command-a>", selectall)
+    rw.focus_set()
     result = Text(rw)
     resultScroll = Scrollbar(rw)
     result.configure(yscrollcommand = resultScroll.set)
     resultScroll.configure(command = result.yview)
-    result.pack(side = LEFT, fill = BOTH)
     resultScroll.pack(side = RIGHT, fill = Y)
+    result.pack(side = LEFT, fill = BOTH)
     result.insert(END, 'Unbekannte Vokabeln:\n\n')
 
     for word in mv:
         result.insert(END, word+"\n")
 
 
-def selectall(event):
-    event.widget.tag_add("sel","1.0","end")
-
-
 def main():
     root = Tk()
-    root.bind_class("Text","<Control-a>", selectall)
-    root.bind_class("Text","<Command-a>", selectall)
-
     upperFrame = Frame(root)
 
     textFrame = Frame(upperFrame)
-    latinText = Text(textFrame, border = 10)
+    latinText = Text(textFrame)
     latinTextScroll = Scrollbar(textFrame)
     latinText.pack(side = LEFT, fill = BOTH, expand = 1)
     latinTextScroll.pack(side = RIGHT, fill = Y)
     latinText.config(yscrollcommand = latinTextScroll.set)
     latinTextScroll.config(command = latinText.yview)
-    latinText.insert(END, 'Ich bin ein:kleiner, "feiner, feiner, "feiner Text. Nichts besonderes.\nJepp.')
 
     vocabFrame = Frame(upperFrame)
     vocabs = Text(vocabFrame, width = 25)
@@ -75,7 +94,6 @@ def main():
     vocabsScroll.pack(side=RIGHT, fill=Y)
     vocabs.config(yscrollcommand = vocabsScroll.set)
     vocabsScroll.config(command = vocabs.yview)
-    vocabs.insert(END, 'kleiner\nbesonderes\nein\nIch\nNichts')
 
     textFrame.pack(side = LEFT, expand = 1, fill = BOTH)
     vocabFrame.pack(side = RIGHT, expand = 1, fill = BOTH)
@@ -87,6 +105,11 @@ def main():
     copyright = Label(controlFrame, text = '(c)2012 feldmann.thomas@googlemail.com', fg = 'gray')
     copyright.pack(side = LEFT, padx = 14, pady = 14)
     controlFrame.pack(fill = X)
+
+    if (fill_with_test_data):
+        latinText.insert(END, test_data.text)
+        vocabs.insert(END, test_data.vocabs)
+
 
     root.mainloop()
 
