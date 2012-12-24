@@ -2,7 +2,6 @@
 import unittest
 import model
 
-
 class VocabFindingTests(unittest.TestCase):
 
     def test_words_from_text(self):
@@ -19,6 +18,21 @@ class VocabFindingTests(unittest.TestCase):
         x = model.words_with_endings(words, ['', 'x', 'XX'])
         self.failUnlessEqual(x, ['a', 'ax', 'aXX', '', 'x', 'XX',
             'ABC', 'ABCx', 'ABCXX'])
+
+
+import os
+class ParsingTests(unittest.TestCase):
+
+    def setUp(self):
+        model.save_endings(['abc', '# def', '', '  ', 'test'],
+            'test_endings.txt')
+
+    def test_load_endings(self):
+        e = model.load_endings('test_endings.txt')
+        self.failUnlessEqual(e, ['abc', 'test'])
+
+    def tearDown(self):
+        os.remove('test_endings.txt')
 
 
 if __name__ == '__main__':
