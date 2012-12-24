@@ -1,18 +1,17 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""Vokabelcheck
+(c)2012, Thomas Feldmann
 
+Questions, ideas: feldmann.thomas@gmail.com
+Project page:     http://tfeldmann.github.com/Vokabelcheck
 """
-    Vokabelcheck
-    (c)2012, Thomas Feldmann
 
-    Questions, ideas: feldmann.thomas@gmail.com
-    Project page:     http://tfeldmann.github.com/Vokabelcheck
-"""
-import string, re
+import string
+import re
 from Tkinter import *
 
-text_settings = {"undo" : True, "padx" : 10, "pady" : 10, "exportselection" : 0}
 
+text_settings = {"undo": True, "padx": 10, "pady": 10, "exportselection": 0}
 
 # latin grammar definitions
 conjugations = set(['am', 'amini', 'amur', 'amus', 'ant', 'antur', 'ar', 'aris', 'as', 'at', 'atis', 'atur', 'bam', 'bamini', 'bamur', 'bamus', 'bant', 'bantur', 'bar', 'baris', 'bas', 'bat', 'batis', 'batur', 'beris', 'bimini', 'bimur', 'bimus', 'bis', 'bit', 'bitis', 'bitur', 'bo', 'bor', 'bunt', 'buntur', 'ebam', 'ebamini', 'ebamur', 'ebamus', 'ebant', 'ebantur', 'ebar', 'ebaris', 'ebas', 'ebat', 'ebatis', 'ebatur', 'em', 'emini', 'emur', 'emus', 'ent', 'entur', 'er', 'erim', 'erimus', 'erint', 'eris', 'erit', 'eritis', 'ero', 'erunt', 'es', 'et', 'etis', 'etur', 'i', 'iam', 'iamini', 'iamur', 'iamus', 'iant', 'iantur', 'iar', 'iaris', 'ias', 'iat', 'iatis', 'iatur', 'iebam', 'iebamini', 'iebamur', 'iebamus', 'iebant', 'iebantur', 'iebar', 'iebaris', 'iebas', 'iebat', 'iebatis', 'iebatur', 'iemini', 'iemur', 'iemus', 'ient', 'ientur', 'ieris', 'ies', 'iet', 'ietis', 'ietur', 'imini', 'imur', 'imus', 'io', 'ior', 'is', 'isti', 'istis', 'it', 'itis', 'itur', 'iunt', 'iuntur', 'm', 'mini', 'mur', 'mus', 'nt', 'ntur', 'o', 'or', 'r', 'ris', 's', 't', 'tis', 'tur', 'unt', 'untur', 'verunt'])
@@ -94,8 +93,6 @@ def main():
     start = Button(controlFrame, text = 'Analyse starten',
         command = lambda: show_missing_vocabulary(latinText.get(1.0, "end"), vocabs.get(1.0, "end")))
     start.pack(side = RIGHT, padx = 14, pady = 14)
-    copyright = Label(controlFrame, text = '(c)2012 feldmann.thomas@googlemail.com', fg = 'gray')
-    copyright.pack(side = LEFT, padx = 14, pady = 14)
     controlFrame.pack(fill = X)
 
     latinText.insert(END, "Lateinischer Text")
