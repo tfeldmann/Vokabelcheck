@@ -34,6 +34,10 @@ class WordWithEndings(unittest.TestCase):
         x = model.word_with_endings("x", set())
         self.failUnlessEqual(x, {"x"})
 
+    def test_empty_both(self):
+        x = model.word_with_endings(set(), set())
+        self.failUnlessEqual(x, set())
+
     def test_duplicates(self):
         word = "abc"
         x = model.word_with_endings(word, {"x", "x", "y"})
@@ -54,6 +58,10 @@ class WordsWithEndings(unittest.TestCase):
     def test_empty_endings(self):
         x = model.words_with_endings({"a", "b", "c"}, set())
         self.failUnlessEqual(x, {"a", "b", "c"})
+
+    def test_empty_both(self):
+        x = model.words_with_endings(set(), set())
+        self.failUnlessEqual(x, set())
 
     def test_duplicates(self):
         x = model.words_with_endings(["a", "b", "b"], ["1", "2"])
@@ -77,8 +85,11 @@ class MissingVocabulary(unittest.TestCase):
         x = model.missing_vocabulary({1, 2, 3, 4}, {3, 4}, set())
         self.failUnlessEqual(x, {1, 2})
 
+    def test_empty_args(self):
+        x = model.missing_vocabulary(set(), set(), set())
+        self.failUnlessEqual(x, set())
 
-import os
+
 class ParsingTests(unittest.TestCase):
     def setUp(self):
         model.save_endings(['abc', '# def', '', '  ', 'test'],
@@ -89,6 +100,7 @@ class ParsingTests(unittest.TestCase):
         self.failUnlessEqual(e, ['abc', 'test'])
 
     def tearDown(self):
+        import os
         os.remove('test_endings.txt')
 
 
