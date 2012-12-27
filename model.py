@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
+
 def words_from_text(text):
     """
         returns an unordered set of words that are contained in the text.
