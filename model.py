@@ -9,7 +9,7 @@ def words_from_text(text):
     text = re.sub('[^a-zA-Z]', " ", text)
     text = text.rstrip('\r\n\t')
     words = text.split()
-    words = set([word for word in words if word != ""])
+    words = {word for word in words if word != ""}
     return words
 
 
