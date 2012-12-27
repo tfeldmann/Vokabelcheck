@@ -8,11 +8,15 @@ def words_from_text(text):
     """
     text = re.sub('[^a-zA-Z]', " ", text)
     text = text.rstrip('\r\n\t')
-    words = text.split(" ")
-    words = {word for word in words if word != ""}
+    words = text.split()
+    words = set([word for word in words if word != ""])
     return words
 
 def word_with_endings(word, endings):
+    if not word:
+        return set()
+    if not endings:
+        return {word}
     return {word + ending for ending in endings}
 
 def words_with_endings(words, endings):
@@ -29,7 +33,7 @@ def missing_vocabulary(words, basicforms, endings):
 
         words, basicforms and endings must be sets
     """
-    result = set()
+    return words - words_with_endings(basicforms, endings)
 
 def save_endings(endings, filename="endings.txt"):
     f = open(filename, 'wb')
