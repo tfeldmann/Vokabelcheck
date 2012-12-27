@@ -2,14 +2,17 @@
 """Vokabelcheck
 (c)2012, Thomas Feldmann
 
-Questions, ideas: feldmann.thomas@gmail.com
-Project page:     http://tfeldmann.github.com/Vokabelcheck
+Questions, ideas:
+feldmann.thomas@gmail.com
+
+Project page:
+http://tfeldmann.github.com/Vokabelcheck
 """
 
 import string
 import re
 from Tkinter import *
-
+import tkMessageBox
 
 text_settings = {"undo": True, "padx": 10, "pady": 10, "exportselection": 0}
 
@@ -21,7 +24,6 @@ def conjugate(base):
     return set([base + conjugation for conjugation in conjugations])
 def declinate(base):
     return set([base + declination for declination in declinations])
-
 
 def get_words(text):
     text = re.sub('[^a-zA-Z]', ' ', text)
@@ -97,6 +99,29 @@ def main():
 
     latinText.insert(END, "Lateinischer Text")
     vocabs.insert(END, "Vokabelliste")
+
+
+    # Menu
+    menubar = Menu(root)
+    textmenu = Menu(menubar)
+    textmenu.add_command(label="Text öffnen")
+    textmenu.add_command(label="Vokabelliste öffnen")
+    textmenu.add_command(label="Endungen öffnen")
+    textmenu.add_separator()
+    textmenu.add_command(label="Text speichern")
+    textmenu.add_command(label="Vokabelliste speichern")
+    textmenu.add_command(label="Endungen speichern")
+    textmenu.add_separator()
+    textmenu.add_command(label="Beenden")
+    menubar.add_cascade(label="Programm", menu=textmenu)
+
+    helpmenu = Menu(menubar)
+    helpmenu.add_command(label="Projektseite")
+    helpmenu.add_command(label="Über das Programm",
+        command=lambda: tkMessageBox.showinfo("Über das Programm", __doc__))
+    menubar.add_cascade(label="Hilfe", menu=helpmenu)
+
+    root.config(menu=menubar)
 
     root.mainloop()
 
