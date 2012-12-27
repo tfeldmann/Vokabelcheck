@@ -2,6 +2,7 @@
 import unittest
 import model
 
+
 class WordsFromText(unittest.TestCase):
     def test_parsing(self):
         x = model.words_from_text("!Abc &§$def,gh   iL..m\r\n\tx")
@@ -16,14 +17,13 @@ class WordsFromText(unittest.TestCase):
         self.failUnlessEqual(x, set())
 
     def test_duplicates(self):
-        words = model.words_from_text("A A A B C")
-        self.failUnlessEqual(words, {"A", "B", "C"})
+        x = model.words_from_text("A A A B C")
+        self.failUnlessEqual(x, {"A", "B", "C"})
 
 
 class WordWithEndings(unittest.TestCase):
     def test_connecting(self):
-        word = 'abc'
-        x = model.word_with_endings(word, {'', 'b', 'aBc'})
+        x = model.word_with_endings("abc", {'', 'b', 'aBc'})
         self.failUnlessEqual(x, {'abc', 'abcb', 'abcaBc'})
 
     def test_empty_wordlist(self):
@@ -78,12 +78,24 @@ class MissingVocabulary(unittest.TestCase):
         self.failUnlessEqual(x, set())
 
     def test_empty_basicforms(self):
-        x = model.missing_vocabulary({1, 2, 3, 4}, set(), {1, 2})
-        self.failUnlessEqual(x, {1, 2, 3, 4})
+        x = model.missing_vocabulary({"a", "b", "c", "d"}, set(), {"a", "b"})
+        self.failUnlessEqual(x, {"a", "b", "c", "d"})
 
     def test_empty_endings(self):
-        x = model.missing_vocabulary({1, 2, 3, 4}, {3, 4}, set())
-        self.failUnlessEqual(x, {1, 2})
+        x = model.missing_vocabulary({"a", "b", "c", "d"}, {"c", "d"}, set())
+        self.failUnlessEqual(x, {"a", "b"})
+
+    def test_only_words(self):
+        x = model.missing_vocabulary({"a", "b", "c", "d"}, set(), set())
+        self.failUnlessEqual(x, {"a", "b", "c", "d"})
+
+    def test_words_and_basicforms(self):
+        x = model.missing_vocabulary({"a", "b", "c", "d"}, {"a", "b"}, set())
+        self.failUnlessEqual(x, {"c", "d"})
+
+    def test_words_and_endings(self):
+        x = model.missing_vocabulary({"a", "b", "c", "d"}, set(), {"c", "d"})
+        self.failUnlessEqual(x, {"a", "b", "c", "d"})
 
     def test_empty_args(self):
         x = model.missing_vocabulary(set(), set(), set())
@@ -96,8 +108,8 @@ class ParsingTests(unittest.TestCase):
             'test_endings.txt')
 
     def test_load_endings(self):
-        e = model.load_endings('test_endings.txt')
-        self.failUnlessEqual(e, ['abc', 'test'])
+        x = model.load_endings('test_endings.txt')
+        self.failUnlessEqual(x, ['abc', 'test'])
 
     def tearDown(self):
         import os
