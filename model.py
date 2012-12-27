@@ -12,6 +12,7 @@ def words_from_text(text):
     words = set([word for word in words if word != ""])
     return words
 
+
 def word_with_endings(word, endings):
     if not word:
         return set()
@@ -19,12 +20,14 @@ def word_with_endings(word, endings):
         return {word}
     return {word + ending for ending in endings}
 
+
 def words_with_endings(words, endings):
     result = set()
     for word in words:
         for variation in word_with_endings(word, endings):
             result.add(variation)
     return result
+
 
 def missing_vocabulary(words, basicforms, endings):
     """
@@ -35,11 +38,13 @@ def missing_vocabulary(words, basicforms, endings):
     """
     return words - words_with_endings(basicforms, endings)
 
+
 def save_endings(endings, filename="endings.txt"):
     f = open(filename, 'wb')
     for ending in endings:
         f.write(ending + "\n")
     f.close()
+
 
 def load_endings(filename="endings.txt"):
     with open(filename, 'rb') as f:
