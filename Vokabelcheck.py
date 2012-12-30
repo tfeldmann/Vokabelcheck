@@ -1,18 +1,113 @@
 # -*- coding: utf-8 -*-
-"""Vokabelcheck
-(c)2012, Thomas Feldmann
+"""Vokabelcheck 1.1
 
-Questions, ideas:
+(c)2012 Thomas Feldmann
 feldmann.thomas@gmail.com
-
-Project page:
-http://tfeldmann.github.com/Vokabelcheck
 """
 
-import string
-import re
 from Tkinter import *
 import tkMessageBox
+import tkFileDialog
+import webbrowser
+
+
+PROJECT_URL = "http://tfeldmann.github.com/Vokabelcheck"
+
+class App():
+    def __init__(self, root):
+        root.title("Vokabelcheck")
+        upperframe = Frame(root)
+
+        textframe = Frame(upperframe)
+        self.latintext = Text(textframe, text_settings)
+        latintext_scrollbar = Scrollbar(textframe)
+        self.latintext.pack(side = LEFT, fill = BOTH, expand = 1)
+        latintext_scrollbar.pack(side = RIGHT, fill = Y)
+        self.latintext.config(yscrollcommand = latintext_scrollbar.set)
+        latintext_scrollbar.config(command = self.latintext.yview)
+
+        vocabframe = Frame(upperframe)
+        self.vocabstext = Text(vocabframe, text_settings, width = 30)
+        vocabs_scrollbar = Scrollbar(vocabframe)
+        self.vocabstext.pack(side = LEFT, fill = BOTH, expand = 1)
+        vocabs_scrollbar.pack(side = RIGHT, fill = Y)
+        self.vocabstext.config(yscrollcommand = vocabs_scrollbar.set)
+        vocabs_scrollbar.config(command = self.vocabstext.yview)
+
+        textframe.pack(side = LEFT, expand = 1, fill = BOTH)
+        vocabframe.pack(side = RIGHT, expand = 1, fill = BOTH)
+        upperframe.pack(side = TOP, expand = 1, fill = BOTH)
+
+        controlframe = Frame(root)
+        start = Button(controlframe, text = 'Analyse starten',
+            command = lambda: show_missing_vocabulary(self.latintext.get(1.0, "end"), self.vocabstext.get(1.0, "end")))
+        start.pack(side = RIGHT, padx = 14, pady = 14)
+        controlframe.pack(fill = X)
+
+        self.latintext.insert(END, "Lateinischer Text")
+        self.vocabstext.insert(END, "Vokabelliste")
+
+        # creating the menu
+        menubar = Menu(root, tearoff=0)
+        textmenu = Menu(menubar)
+        textmenu.add_command(label="Text öffnen",
+            command=self.push_text_open)
+        textmenu.add_command(label="Vokabelliste öffnen",
+            command=self.push_vocabs_open)
+        textmenu.add_command(label="Endungen öffnen",
+            command=self.push_endings_open)
+        textmenu.add_separator()
+        textmenu.add_command(label="Text speichern",
+            command=self.push_text_save)
+        textmenu.add_command(label="Vokabelliste speichern",
+            command=self.push_vocabs_save)
+        textmenu.add_command(label="Endungen speichern",
+            command=self.push_endings_save)
+        textmenu.add_separator()
+        textmenu.add_command(label="Beenden",
+            command=lambda: root.destroy())
+        menubar.add_cascade(label="Programm", menu=textmenu)
+        helpmenu = Menu(menubar)
+        helpmenu.add_command(label="Über Vokabelcheck",
+            command=lambda: tkMessageBox.showinfo("Über Vokabelcheck", __doc__))
+        helpmenu.add_command(label="Projektseite",
+            command=lambda: webbrowser.open(PROJECT_URL))
+        menubar.add_cascade(label="Hilfe", menu=helpmenu)
+        root.config(menu=menubar)
+
+    def load_text(self, textfield):
+        with open(tkFileDialog.askopenfilename(), 'rb') as f:
+            file_content = f.read()
+            textfield.delete(1.0, END)
+            textfield.insert(1.0, file_content)
+
+    def save_text(self, textfield, filename, title="Speichern"):
+        filename = tkFileDialog.asksaveasfilename(
+            initialfile=filename,
+            title=title)
+        f = open(filename, 'wb')
+        f.write(textfield.get(1.0, END))
+        f.close()
+
+    def push_text_open(self):
+        self.load_text(self.latintext)
+
+    def push_text_save(self):
+        self.save_text(self.latintext, "Text.txt", "Text speichern")
+
+    def push_vocabs_open(self):
+        self.load_text(self.vocabstext)
+
+    def push_vocabs_save(self):
+        self.save_text(self.vocabstext, "Vokabeln.txt", "Vokabeln speichern")
+
+    def push_endings_open(self):
+        pass
+
+    def push_endings_save(self):
+        pass
+
+
 
 text_settings = {"undo": True, "padx": 10, "pady": 10, "exportselection": 0}
 
@@ -34,7 +129,7 @@ def get_words(text):
 
 def missing_vocabulary(t, v):
     t = get_words(t) # words from the text
-    v = get_words(v) # words from vocabs
+    v = get_words(v) # words from self.vocabstext
 
     # remove known vocabulary by subtracting sets
     missing = t - v
@@ -51,10 +146,10 @@ def show_missing_vocabulary(text, vocabulary):
     rw = Tk()
     rw.title("Unbekannte Vokabeln")
     result = Text(rw, text_settings, width = 30)
-    resultScroll = Scrollbar(rw)
-    result.configure(yscrollcommand = resultScroll.set)
-    resultScroll.configure(command = result.yview)
-    resultScroll.pack(side = RIGHT, fill = Y)
+    result_Scroll = _Scrollbar(rw)
+    result.configure(yscrollcommand = result_Scroll.set)
+    result_Scroll.configure(command = result.yview)
+    result_Scroll.pack(side = RIGHT, fill = Y)
     result.pack(side = LEFT, fill = BOTH, expand = 1)
 
     mv = missing_vocabulary(text, vocabulary)
@@ -67,62 +162,7 @@ def show_missing_vocabulary(text, vocabulary):
 
 def main():
     root = Tk()
-    root.title("Vokabelcheck")
-
-    upperFrame = Frame(root)
-
-    textFrame = Frame(upperFrame)
-    latinText = Text(textFrame, text_settings)
-    latinTextScroll = Scrollbar(textFrame)
-    latinText.pack(side = LEFT, fill = BOTH, expand = 1)
-    latinTextScroll.pack(side = RIGHT, fill = Y)
-    latinText.config(yscrollcommand = latinTextScroll.set)
-    latinTextScroll.config(command = latinText.yview)
-
-    vocabFrame = Frame(upperFrame)
-    vocabs = Text(vocabFrame, text_settings, width = 30)
-    vocabsScroll = Scrollbar(vocabFrame)
-    vocabs.pack(side = LEFT, fill = BOTH, expand = 1)
-    vocabsScroll.pack(side = RIGHT, fill = Y)
-    vocabs.config(yscrollcommand = vocabsScroll.set)
-    vocabsScroll.config(command = vocabs.yview)
-
-    textFrame.pack(side = LEFT, expand = 1, fill = BOTH)
-    vocabFrame.pack(side = RIGHT, expand = 1, fill = BOTH)
-    upperFrame.pack(side = TOP, expand = 1, fill = BOTH)
-
-    controlFrame = Frame(root)
-    start = Button(controlFrame, text = 'Analyse starten',
-        command = lambda: show_missing_vocabulary(latinText.get(1.0, "end"), vocabs.get(1.0, "end")))
-    start.pack(side = RIGHT, padx = 14, pady = 14)
-    controlFrame.pack(fill = X)
-
-    latinText.insert(END, "Lateinischer Text")
-    vocabs.insert(END, "Vokabelliste")
-
-
-    # Menu
-    menubar = Menu(root)
-    textmenu = Menu(menubar)
-    textmenu.add_command(label="Text öffnen")
-    textmenu.add_command(label="Vokabelliste öffnen")
-    textmenu.add_command(label="Endungen öffnen")
-    textmenu.add_separator()
-    textmenu.add_command(label="Text speichern")
-    textmenu.add_command(label="Vokabelliste speichern")
-    textmenu.add_command(label="Endungen speichern")
-    textmenu.add_separator()
-    textmenu.add_command(label="Beenden")
-    menubar.add_cascade(label="Programm", menu=textmenu)
-
-    helpmenu = Menu(menubar)
-    helpmenu.add_command(label="Projektseite")
-    helpmenu.add_command(label="Über das Programm",
-        command=lambda: tkMessageBox.showinfo("Über das Programm", __doc__))
-    menubar.add_cascade(label="Hilfe", menu=helpmenu)
-
-    root.config(menu=menubar)
-
+    App(root)
     root.mainloop()
 
 
