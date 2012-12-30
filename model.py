@@ -4,8 +4,8 @@ import re
 
 def words_from_text(text):
     """
-        returns an unordered set of words that are contained in the text.
-        Duplicates are removed
+    returns an unordered set of words that are contained in the text.
+    Duplicates are removed
     """
     text = re.sub('[^a-zA-Z]', " ", text)
     text = text.rstrip('\r\n\t')
@@ -32,10 +32,10 @@ def words_with_endings(words, endings):
 
 def missing_vocabulary(words, basicforms, endings):
     """
-        connect the basic forms with endings and check whether the words in the
-        "words" list are known. Returns a set of words that are missing.
+    connect the basic forms with endings and check whether the words in the
+    "words" list are known. Returns a set of words that are missing.
 
-        words, basicforms and endings must be sets
+    words, basicforms and endings must be sets
     """
     return words - words_with_endings(basicforms, endings)
 
