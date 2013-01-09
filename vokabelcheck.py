@@ -53,8 +53,8 @@ class App():
         self.vocabstext.insert(END, 'Vokabelliste')
 
         # menu
-        menubar = Menu(root, tearoff=0)
-        textmenu = Menu(menubar)
+        menubar = Menu(root)
+        textmenu = Menu(menubar, tearoff=0)
         textmenu.add_command(label='Text öffnen',
             command=self.push_text_open)
         textmenu.add_command(label='Vokabelliste öffnen',
@@ -68,7 +68,7 @@ class App():
         textmenu.add_command(label='Beenden',
             command=lambda: root.destroy())
         menubar.add_cascade(label='Programm', menu=textmenu)
-        helpmenu = Menu(menubar)
+        helpmenu = Menu(menubar, tearoff=0)
         helpmenu.add_command(label='Projektseite',
             command=lambda: webbrowser.open(PROJECT_URL))
         helpmenu.add_command(label='Über Vokabelcheck',
