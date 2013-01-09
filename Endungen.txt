@@ -1,4 +1,17 @@
-## Konjugationen
+#
+# Datei Endungen.txt
+#
+# In dieser Datei können die dem Programm bekannten Endungen angepasst werden.
+# Vorgaben:
+#
+#  - Eine Endung pro Zeile
+#  - Leerzeilen sind erlaubt
+#  - Kommentarzeilen (wie dieser Text) müssen mit einer Raute beginnen
+#
+
+
+# Konjugationen
+# ----------------------------------------------------------------------------
 am
 amini
 amur
@@ -51,9 +64,37 @@ em
 emini
 emur
 emus
+ens
 ent
+ente
+entem
+entes
+enti
+entia
+entibus
+entis
+entium
 entur
 er
+eram
+eramus
+erant
+eras
+erat
+eratis
+ere
+erem
+eremini
+eremur
+eremus
+erent
+erentur
+erer
+ereris
+eres
+eret
+eretis
+eretur
 erim
 erimus
 erint
@@ -94,7 +135,16 @@ iebatur
 iemini
 iemur
 iemus
+iens
 ient
+iente
+ientem
+ientes
+ienti
+ientia
+ientibus
+ientis
+ientium
 ientur
 ieris
 ies
@@ -107,9 +157,17 @@ imus
 io
 ior
 is
+isse
+issem
+issemus
+issent
+isses
+isset
+issetis
 isti
 istis
 it
+ite
 itis
 itur
 iunt
@@ -118,21 +176,47 @@ m
 mini
 mur
 mus
+ns
 nt
+nte
+ntem
+ntes
+nti
+ntia
+ntibus
+ntis
+ntium
 ntur
 o
 or
 r
+re
+rem
+remini
+remur
+remus
+rent
+rentur
+rer
+reris
+res
+ret
+retis
+retur
+ri
 ris
 s
 t
+te
 tis
 tur
 unt
 untur
 verunt
 
-## Deklinationen
+
+# Deklinationen
+# ----------------------------------------------------------------------------
 a
 ae
 am
@@ -149,6 +233,7 @@ ia
 ibus
 im
 is
+iter
 ium
 o
 orum
