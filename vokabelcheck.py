@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Vokabelcheck 1.1
+"""
+Vokabelcheck 1.1
 
 (c)2012 Thomas Feldmann
 feldmann.thomas@gmail.com
