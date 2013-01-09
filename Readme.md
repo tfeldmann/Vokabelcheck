@@ -4,11 +4,12 @@ Dazu werden den angegebenen Stammformen alle passenden lateinischen Endungen ang
 
 Zielgruppe sind Lehrer, die Schüler mit den geforderten Vokabeln versorgen müssen.
 
-![Hauptfenster](https://raw.github.com/tfeldmann/Vokabelcheck/master/Screenshot.png)
-![Ergebnisfenster](https://raw.github.com/tfeldmann/Vokabelcheck/master/Screenshot-result.png)
+![Hauptfenster](https://raw.github.com/tfeldmann/Vokabelcheck/master/assets/Screenshot.png)
+![Ergebnisfenster](https://raw.github.com/tfeldmann/Vokabelcheck/master/assets/Screenshot-result.png)
 
 ## Installation
 Windows: Es wird eine Python Umgebung benötigt, die hier installiert werden kann: http://www.python.org/getit/
+
 Ein Doppelklick auf "Vokabelcheck.py" startet das Programm.
 
 Mac OS X: Geben sie im Terminal "python " (mit Leerzeichen am Ende, ohne Anführungsstriche) ein und ziehen sie die Vokabelcheck.py in das Terminalfenster. Bestätigen sie mit ENTER.
