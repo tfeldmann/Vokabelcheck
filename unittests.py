@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 import model
+import endings
 
 
 class WordsFromText(unittest.TestCase):
@@ -73,6 +74,10 @@ class MissingVocabulary(unittest.TestCase):
         x = model.missing_vocabulary({"a1", "a2", "a3"}, {"a", "b"}, {"1", "2"})
         self.failUnlessEqual(x, {"a3"})
 
+    def test_basic_case(self):
+        x = model.missing_vocabulary({"A1", "A2", "A3"}, {"A", "B"}, {"1", "2"})
+        self.failUnlessEqual(x, {'a3'})
+
     def test_empty_words(self):
         x = model.missing_vocabulary(set(), {"a", "b"}, {"1", "2"})
         self.failUnlessEqual(x, set())
@@ -104,11 +109,11 @@ class MissingVocabulary(unittest.TestCase):
 
 class ParsingTests(unittest.TestCase):
     def setUp(self):
-        model.save_endings(['abc', '# def', '', '  ', 'test'],
+        endings.save(['abc', '# def', '', '  ', '  test', ' ##'],
             'test_endings.txt')
 
     def test_load_endings(self):
-        x = model.load_endings('test_endings.txt')
+        x = endings.load('test_endings.txt')
         self.failUnlessEqual(x, ['abc', 'test'])
 
     def tearDown(self):

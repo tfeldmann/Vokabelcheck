@@ -8,7 +8,7 @@ def words_from_text(text):
     Duplicates are removed
     """
     text = re.sub('[^a-zA-Z]', " ", text)
-    text = text.rstrip('\r\n\t')
+    text = text.strip('\r\n\t')
     words = text.split()
     words = {word for word in words if word != ""}
     return words
@@ -37,23 +37,7 @@ def missing_vocabulary(words, basicforms, endings):
 
     words, basicforms and endings must be sets
     """
+    words = {x.lower() for x in words}
+    basicforms = {x.lower() for x in basicforms}
+    endings = {x.lower() for x in endings}
     return words - words_with_endings(basicforms, endings)
-
-
-def save_endings(endings, filename="endings.txt"):
-    f = open(filename, 'wb')
-    for ending in endings:
-        f.write(ending + "\n")
-    f.close()
-
-
-def load_endings(filename="endings.txt"):
-    with open(filename, 'rb') as f:
-        file_content = f.read()
-        lines = file_content.split("\n")
-
-        endings = []
-        for line in lines:
-            if line[:1] != "#" and line.strip() != "":
-                endings.append(line)
-        return endings
