@@ -130,6 +130,21 @@ class App():
     def push_show_missing_vocabulary(self):
         root = self.root
 
+        # get missing vocabulary
+        text = self.latintext.get(1.0, 'end')
+        text = model.words_from_text(text)
+        vocabs = self.vocabstext.get(1.0, 'end')
+        vocabs = model.words_from_text(vocabs)
+        endings = self.load_endings()
+
+        # abort here if no endings are defined
+        if not endings:
+            return
+
+        t0 = time.clock()
+        missing = model.missing_vocabulary(text, vocabs, endings)
+        t = time.clock() - t0
+
         # GUI
         rw = Toplevel(root)
         rw.title('Ergebnis')
@@ -139,17 +154,6 @@ class App():
         result_scroll.configure(command=result_text.yview)
         result_scroll.pack(side=RIGHT, fill=Y)
         result_text.pack(side=LEFT, fill=BOTH, expand=1)
-
-        # get missing vocabulary
-        text = self.latintext.get(1.0, 'end')
-        text = model.words_from_text(text)
-        vocabs = self.vocabstext.get(1.0, 'end')
-        vocabs = model.words_from_text(vocabs)
-        endings = self.load_endings()
-
-        t0 = time.clock()
-        missing = model.missing_vocabulary(text, vocabs, endings)
-        t = time.clock() - t0
 
         # show in textfield
         result_text.insert(END, 'Unbekannte Vokabeln:\n\n')
