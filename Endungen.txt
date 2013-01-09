@@ -5,8 +5,8 @@
 # Vorgaben:
 #
 #  - Eine Endung pro Zeile
+#  - Kommentarzeilen (wie dieser Text) beginnen mit einer Raute
 #  - Leerzeilen sind erlaubt
-#  - Kommentarzeilen (wie dieser Text) müssen mit einer Raute beginnen
 #
 
 
