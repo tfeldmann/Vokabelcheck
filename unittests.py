@@ -106,6 +106,10 @@ class MissingVocabulary(unittest.TestCase):
         x = model.missing_vocabulary(set(), set(), set())
         self.failUnlessEqual(x, set())
 
+    def test_word_is_in_vocab(self):
+        x = model.missing_vocabulary({"xxx", "yyy"}, {"xxx", "yyy"}, set())
+        self.failUnlessEqual(x, set())
+
 
 class ParsingTests(unittest.TestCase):
     def setUp(self):

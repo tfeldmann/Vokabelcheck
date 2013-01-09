@@ -40,4 +40,4 @@ def missing_vocabulary(words, basicforms, endings):
     words = {x.lower() for x in words}
     basicforms = {x.lower() for x in basicforms}
     endings = {x.lower() for x in endings}
-    return words - words_with_endings(basicforms, endings)
+    return words - basicforms - words_with_endings(basicforms, endings)

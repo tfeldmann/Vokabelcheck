@@ -138,7 +138,7 @@ class App():
         result_scroll.pack(side=RIGHT, fill=Y)
         result_text.pack(side=LEFT, fill=BOTH, expand=1)
 
-        # show missing vocabulary
+        # get missing vocabulary
         text = self.latintext.get(1.0, 'end')
         text = model.words_from_text(text)
         vocabs = self.vocabstext.get(1.0, 'end')
