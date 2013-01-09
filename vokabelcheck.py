@@ -69,10 +69,10 @@ class App():
             command=lambda: root.destroy())
         menubar.add_cascade(label='Programm', menu=textmenu)
         helpmenu = Menu(menubar)
-        helpmenu.add_command(label='Über Vokabelcheck',
-            command=lambda: tkMessageBox.showinfo('Info', __doc__))
         helpmenu.add_command(label='Projektseite',
             command=lambda: webbrowser.open(PROJECT_URL))
+        helpmenu.add_command(label='Über Vokabelcheck',
+            command=lambda: tkMessageBox.showinfo('Info', __doc__))
         menubar.add_cascade(label='Hilfe', menu=helpmenu)
         root.config(menu=menubar)
 
@@ -132,7 +132,7 @@ class App():
 
         # GUI
         rw = Toplevel(root)
-        rw.title('Unbekannte Vokabeln')
+        rw.title('Ergebnis')
         result_text = Text(rw, TEXT_SETTINGS, width=30)
         result_scroll = Scrollbar(rw)
         result_text.configure(yscrollcommand=result_scroll.set)
@@ -151,13 +151,13 @@ class App():
         missing = model.missing_vocabulary(text, vocabs, endings)
         t = time.clock() - t0
 
+        # show in textfield
+        result_text.insert(END, 'Unbekannte Vokabeln:\n\n')
         if missing:
             for vocab in missing:
                 result_text.insert(END, vocab + '\n')
         else:
             result_text.insert(END, 'Keine unbekannten Vokabeln')
-
-        # show measured time
         result_text.insert(END, '\nErmittelt in %.4fs' % t)
 
 
