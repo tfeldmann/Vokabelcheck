@@ -45,8 +45,8 @@ class App():
 
         controlframe = Frame(root)
         start = Button(controlframe, text='Unbekannte Vokabeln zeigen',
-            command = self.push_show_missing_vocabulary)
-        start.pack(side=RIGHT, padx=14, pady=14)
+            command = self.push_show_missing_vocabulary, width=25)
+        start.pack(side=RIGHT, padx=15, pady=15)
         controlframe.pack(fill=X)
 
         self.latintext.insert(END, 'Lateinischer Text')
@@ -75,6 +75,7 @@ class App():
             command=lambda: webbrowser.open(PROJECT_URL))
         menubar.add_cascade(label='Hilfe', menu=helpmenu)
         root.config(menu=menubar)
+
 
     def load_endings(self, filename='Endungen.txt'):
         try:
@@ -112,6 +113,7 @@ class App():
             f.write(textfield.get(1.0, END))
             f.close()
         except: pass
+
 
     def push_text_open(self):
         self.load_text(self.latintext)

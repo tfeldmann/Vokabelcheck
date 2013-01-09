@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-import re
-
 
 def words_from_text(text):
+    import re
     """
     returns an unordered set of words that are contained in the text.
     Duplicates are removed
