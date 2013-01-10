@@ -79,7 +79,7 @@ class App():
 
     def load_endings(self, filename='Endungen.txt'):
         try:
-            with open(filename, 'rb') as f:
+            with open(filename, 'rU') as f:
                 file_content = f.read()
                 lines = file_content.split('\n')
                 endings = []
@@ -99,7 +99,7 @@ class App():
 
     def load_text(self, textfield):
         try:
-            with open(tkFileDialog.askopenfilename(), 'rb') as f:
+            with open(tkFileDialog.askopenfilename(), 'rU') as f:
                 file_content = f.read()
                 textfield.delete(1.0, END)
                 textfield.insert(1.0, file_content)
@@ -110,7 +110,7 @@ class App():
             filename = tkFileDialog.asksaveasfilename(
                 initialfile=filename, title=title)
             f = open(filename, 'wb')
-            f.write(textfield.get(1.0, END))
+            f.write(textfield.get(1.0, END).replace('\n', '\r\n'))
             f.close()
         except: pass
 
