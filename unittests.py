@@ -5,6 +5,7 @@ import endings
 
 
 class WordsFromText(unittest.TestCase):
+
     def test_parsing(self):
         x = model.words_from_text("!Abc &§$def,gh   iL..m\r\n\tx")
         self.failUnlessEqual(x, {'Abc', 'def', 'gh', 'iL', 'm', 'x'})
@@ -23,6 +24,7 @@ class WordsFromText(unittest.TestCase):
 
 
 class WordWithEndings(unittest.TestCase):
+
     def test_connecting(self):
         x = model.word_with_endings("abc", {'', 'b', 'aBc'})
         self.failUnlessEqual(x, {'abc', 'abcb', 'abcaBc'})
@@ -46,11 +48,12 @@ class WordWithEndings(unittest.TestCase):
 
 
 class WordsWithEndings(unittest.TestCase):
+
     def test_basic(self):
         words = ['a', 'b', 'ABC']
         x = model.words_with_endings(words, {'', 'x', 'XX'})
         self.failUnlessEqual(x, {'a', 'ax', 'aXX', 'b', 'bx', 'bXX',
-            'ABC', 'ABCx', 'ABCXX'})
+                                 'ABC', 'ABCx', 'ABCXX'})
 
     def test_empty_wordlist(self):
         x = model.words_with_endings(set(), {"a", "b", "c"})
@@ -70,12 +73,15 @@ class WordsWithEndings(unittest.TestCase):
 
 
 class MissingVocabulary(unittest.TestCase):
+
     def test_basic(self):
-        x = model.missing_vocabulary({"a1", "a2", "a3"}, {"a", "b"}, {"1", "2"})
+        x = model.missing_vocabulary(
+            {"a1", "a2", "a3"}, {"a", "b"}, {"1", "2"})
         self.failUnlessEqual(x, {"a3"})
 
     def test_basic_case(self):
-        x = model.missing_vocabulary({"A1", "A2", "A3"}, {"A", "B"}, {"1", "2"})
+        x = model.missing_vocabulary(
+            {"A1", "A2", "A3"}, {"A", "B"}, {"1", "2"})
         self.failUnlessEqual(x, {'a3'})
 
     def test_empty_words(self):
@@ -112,9 +118,10 @@ class MissingVocabulary(unittest.TestCase):
 
 
 class ParsingTests(unittest.TestCase):
+
     def setUp(self):
         endings.save(['abc', '# def', '', '  ', '  test', ' ##'],
-            'test_endings.txt')
+                     'test_endings.txt')
 
     def test_load_endings(self):
         x = endings.load('test_endings.txt')

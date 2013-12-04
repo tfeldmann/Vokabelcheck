@@ -16,7 +16,9 @@ import model
 PROJECT_URL = 'http://tfeldmann.github.com/Vokabelcheck'
 TEXT_SETTINGS = {'undo': True, 'padx': 10, 'pady': 10, 'exportselection': 0}
 
+
 class App():
+
     def __init__(self, root):
         self.root = root
         root.title('Vokabelcheck')
@@ -45,7 +47,7 @@ class App():
 
         controlframe = Frame(root)
         start = Button(controlframe, text='Unbekannte Vokabeln zeigen',
-            command = self.push_show_missing_vocabulary, width=25)
+                       command=self.push_show_missing_vocabulary, width=25)
         start.pack(side=RIGHT, padx=15, pady=15)
         controlframe.pack(fill=X)
 
@@ -56,26 +58,25 @@ class App():
         menubar = Menu(root)
         textmenu = Menu(menubar, tearoff=0)
         textmenu.add_command(label='Text öffnen',
-            command=self.push_text_open)
+                             command=self.push_text_open)
         textmenu.add_command(label='Vokabelliste öffnen',
-            command=self.push_vocabs_open)
+                             command=self.push_vocabs_open)
         textmenu.add_separator()
         textmenu.add_command(label='Text speichern',
-            command=self.push_text_save)
+                             command=self.push_text_save)
         textmenu.add_command(label='Vokabelliste speichern',
-            command=self.push_vocabs_save)
+                             command=self.push_vocabs_save)
         textmenu.add_separator()
         textmenu.add_command(label='Beenden',
-            command=lambda: root.destroy())
+                             command=lambda: root.destroy())
         menubar.add_cascade(label='Programm', menu=textmenu)
         helpmenu = Menu(menubar, tearoff=0)
         helpmenu.add_command(label='Projektseite',
-            command=lambda: webbrowser.open(PROJECT_URL))
+                             command=lambda: webbrowser.open(PROJECT_URL))
         helpmenu.add_command(label='Über Vokabelcheck',
-            command=lambda: tkMessageBox.showinfo('Info', __doc__))
+                             command=lambda: tkMessageBox.showinfo('Info', __doc__))
         menubar.add_cascade(label='Hilfe', menu=helpmenu)
         root.config(menu=menubar)
-
 
     def load_endings(self, filename='Endungen.txt'):
         try:
@@ -94,8 +95,7 @@ class App():
         # 'Endungen.txt' does not exist
         except IOError as e:
             tkMessageBox.showinfo('Keine Endungen gefunden!',
-                'Konnte die Datei Endungen.txt nicht finden.')
-
+                                  'Konnte die Datei Endungen.txt nicht finden.')
 
     def load_text(self, textfield):
         try:
@@ -103,7 +103,8 @@ class App():
                 file_content = f.read()
                 textfield.delete(1.0, END)
                 textfield.insert(1.0, file_content)
-        except: pass
+        except:
+            pass
 
     def save_text(self, textfield, filename, title='Speichern'):
         try:
@@ -112,8 +113,8 @@ class App():
             f = open(filename, 'wb')
             f.write(textfield.get(1.0, END).replace('\n', '\r\n'))
             f.close()
-        except: pass
-
+        except:
+            pass
 
     def push_text_open(self):
         self.load_text(self.latintext)
